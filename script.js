@@ -1,88 +1,89 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f3f6fb;
+function calculateTax() {
+  let income = Number(document.getElementById("income").value);
+
+  if (!income || income <= 0) {
+    document.getElementById("result").innerHTML =
+      "⚠️ Please enter valid income";
+    return;
+  }
+
+  let annual = income * 12;
+
+  let tax = 0;
+
+  if (annual <= 600000) {
+    tax = 0;
+  } else if (annual <= 1200000) {
+    tax = annual * 0.05;
+  } else if (annual <= 2400000) {
+    tax = annual * 0.10;
+  } else {
+    tax = annual * 0.15;
+  }
+
+  let net = annual - tax;
+
+  document.getElementById("result").innerHTML = `
+    <b>Annual Income:</b> Rs ${annual.toLocaleString()}<br>
+    <b>Estimated Tax:</b> Rs ${tax.toFixed(0)}<br>
+    <b>Net Income:</b> Rs ${net.toFixed(0)}
+  `;
 }
 
-/* APP */
-.app {
-  max-width: 420px;
-  margin: auto;
-  padding: 15px;
+
+// WhatsApp Share
+function shareWhatsApp() {
+  let income = Number(document.getElementById("income").value);
+
+  if (!income || income <= 0) {
+    alert("Enter income first");
+    return;
+  }
+
+  let annual = income * 12;
+
+  let tax = annual <= 600000 ? 0 :
+            annual <= 1200000 ? annual * 0.05 :
+            annual <= 2400000 ? annual * 0.10 :
+            annual * 0.15;
+
+  let msg =
+`🇵🇰 Pakistan Tax Calculator 2025–26
+
+Monthly Income: Rs ${income}
+Annual Income: Rs ${annual}
+Tax: Rs ${tax.toFixed(0)}
+Net: Rs ${(annual - tax).toFixed(0)}
+
+Try it:
+https://your-link-here`;
+
+  window.open("https://wa.me/?text=" + encodeURIComponent(msg), "_blank");
 }
 
-/* HEADER */
-.header {
-  text-align: center;
-  margin-top: 20px;
+
+// DOWNLOAD IMAGE
+function downloadImage() {
+  html2canvas(document.getElementById("captureArea")).then(canvas => {
+    let link = document.createElement("a");
+    link.download = "tax-result.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
 }
 
-.header h1 {
-  margin: 0;
-  color: #2563eb;
-}
 
-.header p {
-  font-size: 13px;
-  color: #64748b;
-}
+// DOWNLOAD PDF
+function downloadPDF() {
+  html2canvas(document.getElementById("captureArea")).then(canvas => {
+    let img = canvas.toDataURL("image/png");
 
-/* CARD */
-.card {
-  background: white;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
+    let pdf = new jspdf.jsPDF();
 
-/* INPUT */
-input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
+    let width = pdf.internal.pageSize.getWidth();
+    let height = (canvas.height * width) / canvas.width;
 
-/* BUTTONS */
-.btn {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 10px;
-  background: #2563eb;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: #1d4ed8;
-}
-
-.green {
-  background: #25D366;
-}
-
-.green:hover {
-  background: #1ebe5d;
-}
-
-/* RESULT */
-.result {
-  margin-top: 15px;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-/* SEO */
-.seo {
-  background: white;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 18px;
-  font-size: 13px;
-  color: #444;
+    pdf.addImage(img, "PNG", 0, 0, width, height);
+    pdf.save("tax-result.pdf");
+  });
 }
