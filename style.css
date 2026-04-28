@@ -100,3 +100,18 @@ button:hover {
   font-size: 10px;
   color: #94a3b8;
 }
+.share-btn {
+  margin-top: 10px;
+  background: #25D366;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background: #1ebe5d;
+}
