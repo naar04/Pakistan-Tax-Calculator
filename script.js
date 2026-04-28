@@ -2,7 +2,6 @@ function calculateTax() {
   let income = Number(document.getElementById("income").value);
 
   let annual = income * 12;
-
   let tax = 0;
 
   if (annual <= 600000) {
@@ -15,6 +14,9 @@ function calculateTax() {
     tax = annual * 0.15;
   }
 
-  document.getElementById("result").innerText =
-    "Estimated Tax: Rs. " + tax;
+  document.getElementById("result").innerHTML = `
+    <b>Annual Income:</b> Rs ${annual}<br>
+    <b>Estimated Tax:</b> Rs ${tax.toFixed(0)}<br>
+    <b>Net Income:</b> Rs ${(annual - tax).toFixed(0)}
+  `;
 }
