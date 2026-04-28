@@ -2,44 +2,63 @@
 <html>
 <head>
   <title>Pakistan Tax Calculator 2025-26</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- NAV -->
-  <div class="nav">
-    <div class="logo">TaxEase</div>
-    <div class="tag">Pakistan • 2025–26</div>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>TaxEase</h1>
+    <p>Pakistan Income Tax Calculator 2025–26</p>
   </div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>Income Tax Calculator</h1>
-    <p>Fast & simple tax estimation for Pakistan</p>
-  </div>
-
-  <!-- MAIN CARD -->
+  <!-- CARD -->
   <div class="card">
 
-    <label>Enter Monthly Income</label>
+    <label>Monthly Income</label>
     <input id="income" placeholder="e.g. 100000" />
 
     <button onclick="calculateTax()">Calculate Tax</button>
 
-    <div id="result" class="result"></div>
-
-    <!-- WHATSAPP BUTTON (IMPORTANT) -->
-    <button class="share-btn" onclick="shareWhatsApp()">
-      Share on WhatsApp
-    </button>
-
-    <div class="note">
-      Estimated calculation based on Pakistan tax slabs (2025–26)
+    <!-- RESULT -->
+    <div id="captureArea">
+      <div id="result" class="result"></div>
     </div>
+
+    <!-- ACTION BUTTONS -->
+    <button class="btn green" onclick="shareWhatsApp()">Share on WhatsApp</button>
+    <button class="btn" onclick="downloadImage()">Download Image</button>
+    <button class="btn" onclick="downloadPDF()">Download PDF</button>
 
   </div>
 
-  <script src="script.js"></script>
+  <!-- SEO SECTION -->
+  <div class="seo">
+    <h2>Pakistan Income Tax Calculator 2025–26</h2>
+    <p>
+      This free tool helps salaried individuals in Pakistan estimate their income tax based on current FBR slabs.
+      It provides instant results including tax payable and net income.
+    </p>
+
+    <h3>Who can use this?</h3>
+    <ul>
+      <li>Salaried employees</li>
+      <li>Freelancers</li>
+      <li>Small business owners</li>
+    </ul>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
