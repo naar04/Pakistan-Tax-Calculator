@@ -6,15 +6,28 @@
 </head>
 <body>
 
-  <h1>Tax Calculator</h1>
+  <div class="container">
 
-  <input id="income" placeholder="Enter monthly income" />
+    <div class="card">
 
-  <button onclick="calculateTax()">Calculate</button>
+      <h1>Income Tax Calculator</h1>
+      <p class="sub">Pakistan • Tax Year 2025–26</p>
 
-  <h2 id="result"></h2>
+      <label>Monthly Income</label>
+      <input id="income" placeholder="e.g. 100000" />
+
+      <button onclick="calculateTax()">Calculate Tax</button>
+
+      <div id="result" class="result"></div>
+
+      <p class="note">
+        ⚠ This is an estimated calculation based on current tax slabs.
+      </p>
+
+    </div>
+
+  </div>
 
   <script src="script.js"></script>
-
 </body>
 </html>
