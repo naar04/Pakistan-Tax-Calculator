@@ -1,77 +1,88 @@
-function calculateTax() {
-  let income = Number(document.getElementById("income").value);
-  let resultBox = document.getElementById("result");
-
-  // Validation
-  if (!income || income <= 0) {
-    resultBox.innerHTML = "⚠️ Please enter a valid monthly income";
-    return;
-  }
-
-  // Annual income
-  let annual = income * 12;
-
-  // Tax calculation (simple slabs)
-  let tax = 0;
-
-  if (annual <= 600000) {
-    tax = 0;
-  } else if (annual <= 1200000) {
-    tax = annual * 0.05;
-  } else if (annual <= 2400000) {
-    tax = annual * 0.10;
-  } else {
-    tax = annual * 0.15;
-  }
-
-  let netIncome = annual - tax;
-
-  // Show result
-  resultBox.innerHTML = `
-    <b>Annual Income:</b> Rs ${annual.toLocaleString()}<br>
-    <b>Estimated Tax:</b> Rs ${tax.toFixed(0).toLocaleString()}<br>
-    <b>Net Income:</b> Rs ${netIncome.toFixed(0).toLocaleString()}
-  `;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f6fb;
 }
 
+/* APP */
+.app {
+  max-width: 420px;
+  margin: auto;
+  padding: 15px;
+}
 
-// 🌐 WhatsApp Share Function
-function shareWhatsApp() {
-  let income = Number(document.getElementById("income").value);
+/* HEADER */
+.header {
+  text-align: center;
+  margin-top: 20px;
+}
 
-  if (!income || income <= 0) {
-    alert("Please enter income and calculate first.");
-    return;
-  }
+.header h1 {
+  margin: 0;
+  color: #2563eb;
+}
 
-  let annual = income * 12;
+.header p {
+  font-size: 13px;
+  color: #64748b;
+}
 
-  let tax = 0;
+/* CARD */
+.card {
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
 
-  if (annual <= 600000) {
-    tax = 0;
-  } else if (annual <= 1200000) {
-    tax = annual * 0.05;
-  } else if (annual <= 2400000) {
-    tax = annual * 0.10;
-  } else {
-    tax = annual * 0.15;
-  }
+/* INPUT */
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
 
-  let netIncome = annual - tax;
+/* BUTTONS */
+.btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-  let message =
-`🇵🇰 Pakistan Tax Calculator 2025-26
+.btn:hover {
+  background: #1d4ed8;
+}
 
-💰 Monthly Income: Rs ${income}
-📊 Annual Income: Rs ${annual}
-💸 Estimated Tax: Rs ${tax.toFixed(0)}
-🏦 Net Income: Rs ${netIncome.toFixed(0)}
+.green {
+  background: #25D366;
+}
 
-Try it here:-
-👉 https://naar04.github.io/Pakistan-Tax-Calculator/`;
+.green:hover {
+  background: #1ebe5d;
+}
 
-  let url = "https://wa.me/?text=" + encodeURIComponent(message);
+/* RESULT */
+.result {
+  margin-top: 15px;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
-  window.open(url, "_blank");
+/* SEO */
+.seo {
+  background: white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 18px;
+  font-size: 13px;
+  color: #444;
 }
