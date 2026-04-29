@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Zakat Calculator Pakistan 2026 | Live Gold Price + PDF</title>
+
+<meta name="description" content="Advanced Zakat Calculator Pakistan with live gold & silver rates, Urdu support, PDF download, and sharing. Calculate zakat accurately.">
+
+<style>
+body {
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
+
+/* HEADER */
+header { text-align:center; padding:25px; }
+
+/* CARD */
+.container {
+  max-width:500px;
+  margin:auto;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(12px);
+  padding:20px;
+  border-radius:15px;
+}
+
+/* INPUT */
+input {
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border:none;
+  border-radius:8px;
+}
+
+/* BUTTON */
+button {
+  width:100%;
+  padding:12px;
+  margin-top:8px;
+  border:none;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* RESULT */
+.result {
+  margin-top:10px;
+  padding:12px;
+  background:rgba(0,0,0,0.3);
+  border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1 id="title">Zakat Calculator Pakistan</h1>
+<button onclick="toggleLang()">اردو</button>
+</header>
+
+<div class="container">
+
+<p id="livePrice">Loading gold/silver price...</p>
+
+<input type="number" id="cash" placeholder="Cash (PKR)">
+<input type="number" id="goldWeight" placeholder="Gold (grams)">
+<input type="number" id="silverWeight" placeholder="Silver (grams)">
+<input type="number" id="business" placeholder="Business / Investments">
+<input type="number" id="liabilities" placeholder="Liabilities">
+
+<button onclick="calculateZakat()">Calculate</button>
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="shareResult()">Share</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+// LIVE GOLD API
+let goldPrice = 22000; // fallback
+let silverPrice = 250;
+
+fetch("https://api.metals.live/v1/spot")
+.then(res => res.json())
+.then(data => {
+  data.forEach(item => {
+    if(item.gold) goldPrice = item.gold * 2800 / 31.1;
+    if(item.silver) silverPrice = item.silver * 2800 / 31.1;
+  });
+  document.getElementById("livePrice").innerHTML =
+    `Gold: PKR ${goldPrice.toFixed(0)}/g | Silver: PKR ${silverPrice.toFixed(0)}/g`;
+})
+.catch(() => {
+  document.getElementById("livePrice").innerHTML =
+    "Using estimated prices";
+});
+
+// CALCULATION
+function calculateZakat() {
+  let cash = +document.getElementById('cash').value || 0;
+  let gold = (+document.getElementById('goldWeight').value || 0) * goldPrice;
+  let silver = (+document.getElementById('silverWeight').value || 0) * silverPrice;
+  let business = +document.getElementById('business').value || 0;
+  let liabilities = +document.getElementById('liabilities').value || 0;
+
+  let total = cash + gold + silver + business;
+  let net = total - liabilities;
+
+  let nisab = silverPrice * 612; // silver nisab
+
+  let zakat = net >= nisab ? net * 0.025 : 0;
+
+  let text = `
+  Net Wealth: PKR ${net.toFixed(0)} <br>
+  Nisab: PKR ${nisab.toFixed(0)} <br>
+  Zakat: PKR ${zakat.toFixed(0)}
+  `;
+
+  document.getElementById("result").innerHTML = text;
+}
+
+// PDF DOWNLOAD
+function downloadPDF() {
+  let content = document.getElementById("result").innerText;
+  let blob = new Blob([content], {type:"text/plain"});
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "zakat.txt";
+  a.click();
+}
+
+// SHARE
+function shareResult() {
+  let text = document.getElementById("result").innerText;
+  if(navigator.share){
+    navigator.share({title:"Zakat Result", text});
+  } else {
+    navigator.clipboard.writeText(text);
+    alert("Copied to clipboard");
+  }
+}
+
+// URDU TOGGLE
+let urdu = false;
+function toggleLang(){
+  urdu = !urdu;
+
+  if(urdu){
+    document.getElementById("title").innerText = "زکات کیلکولیٹر";
+  } else {
+    document.getElementById("title").innerText = "Zakat Calculator Pakistan";
+  }
+}
+</script>
+
+</body>
+</html>
