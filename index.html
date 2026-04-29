@@ -1,74 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Pakistan Tax Calculator 2025-26 | Free Income Tax Calculator</title>
-<meta name="google-site-verification" content="xi0Nt4uDqg7A-P_RkqxS5ztLYl1QUnbIznZowKSaZQs" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Free Pakistan income tax calculator for 2025-26. Instantly calculate salary tax, net income, and annual tax based on FBR slabs. Mobile friendly and fast." />
+<title>Free Online Calculators Pakistan | Tax, Zakat, EMI & More</title>
 
-<meta name="keywords" content="Pakistan tax calculator, income tax Pakistan 2025, salary tax calculator Pakistan, FBR tax calculator, net salary calculator Pakistan" />
+<meta name="description" content="پاکستان کے لیے بہترین فری آن لائن کیلکولیٹرز۔ Income tax, zakat, EMI, electricity bill, BMI, age calculator اور مزید۔ Fast, accurate & mobile-friendly tools.">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="keywords" content="Pakistan calculators, tax calculator Pakistan, zakat calculator, EMI calculator, BMI calculator, age calculator, electricity bill calculator">
 
-<meta name="robots" content="index, follow" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
+<style>
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+}
 
-  <!-- Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+/* HEADER */
+header {
+  text-align:center;
+  padding:40px 20px;
+}
+header h1 {
+  font-size:32px;
+  margin-bottom:10px;
+}
+header p {
+  opacity:0.8;
+}
 
-  <link rel="stylesheet" href="style.css">
+/* GRID */
+.container {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 5px 25px rgba(0,0,0,0.4);
+  transition:0.3s;
+}
+.card:hover {
+  transform:translateY(-5px);
+}
+
+.card h3 {
+  margin-bottom:10px;
+}
+
+.card p {
+  font-size:14px;
+  opacity:0.8;
+}
+
+/* BUTTON */
+.btn {
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 15px;
+  background:#00c6ff;
+  color:black;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* SEO CONTENT */
+.content {
+  padding:20px;
+  max-width:900px;
+  margin:auto;
+  line-height:1.6;
+}
+
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:20px;
+  opacity:0.7;
+  font-size:14px;
+}
+</style>
 </head>
 
 <body>
 
-<div class="app">
+<header>
+<h1>🇵🇰 Pakistan Free Online Calculators</h1>
+<p>All-in-one smart tools: Tax, Zakat, EMI, Bills & More</p>
+</header>
 
-  <!-- HEADER -->
-  <div class="header">
-    <h1>TaxEase</h1>
-    <p>Pakistan Income Tax Calculator 2025–26</p>
-  </div>
+<div class="container">
 
-  <!-- CARD -->
-  <div class="card">
+<div class="card">
+<h3>Income Tax Calculator</h3>
+<p>Calculate your income tax in Pakistan instantly.</p>
+<a href="tax.html" class="btn">Open Calculator</a>
+</div>
 
-    <label>Monthly Income</label>
-    <input id="income" placeholder="e.g. 100000" />
+<div class="card">
+<h3>Zakat Calculator</h3>
+<p>Calculate zakat based on your total wealth easily.</p>
+<a href="zakat.html" class="btn">Open Calculator</a>
+</div>
 
-    <button onclick="calculateTax()">Calculate Tax</button>
+<div class="card">
+<h3>Loan EMI Calculator</h3>
+<p>Find monthly installment for loans and financing.</p>
+<a href="emi.html" class="btn">Open Calculator</a>
+</div>
 
-    <!-- RESULT -->
-    <div id="captureArea">
-      <div id="result" class="result"></div>
-    </div>
+<div class="card">
+<h3>Electricity Bill Calculator</h3>
+<p>Estimate your monthly electricity bill.</p>
+<a href="bill.html" class="btn">Open Calculator</a>
+</div>
 
-    <!-- ACTION BUTTONS -->
-    <button class="btn green" onclick="shareWhatsApp()">Share on WhatsApp</button>
-    <button class="btn" onclick="downloadImage()">Download Image</button>
-    <button class="btn" onclick="downloadPDF()">Download PDF</button>
+<div class="card">
+<h3>Fuel Cost Calculator</h3>
+<p>Calculate fuel cost for travel and trips.</p>
+<a href="fuel.html" class="btn">Open Calculator</a>
+</div>
 
-  </div>
+<div class="card">
+<h3>BMI Calculator</h3>
+<p>Check your body mass index quickly.</p>
+<a href="bmi.html" class="btn">Open Calculator</a>
+</div>
 
-  <!-- SEO SECTION -->
-  <div class="seo">
-    <h2>Pakistan Income Tax Calculator 2025–26</h2>
-    <p>
-      This free tool helps salaried individuals in Pakistan estimate their income tax based on current FBR slabs.
-      It provides instant results including tax payable and net income.
-    </p>
+<div class="card">
+<h3>Age Calculator</h3>
+<p>Find your exact age in years, months, days.</p>
+<a href="age.html" class="btn">Open Calculator</a>
+</div>
 
-    <h3>Who can use this?</h3>
-    <ul>
-      <li>Salaried employees</li>
-      <li>Freelancers</li>
-      <li>Small business owners</li>
-    </ul>
-  </div>
+<div class="card">
+<h3>Savings Calculator</h3>
+<p>Estimate your savings growth over time.</p>
+<a href="savings.html" class="btn">Open Calculator</a>
+</div>
+
+<div class="card">
+<h3>Mobile Data Calculator</h3>
+<p>Calculate your mobile data usage cost.</p>
+<a href="data.html" class="btn">Open Calculator</a>
+</div>
+
+<div class="card">
+<h3>Salary After Tax</h3>
+<p>Calculate your net salary after tax deductions.</p>
+<a href="salary.html" class="btn">Open Calculator</a>
+</div>
 
 </div>
 
-<script src="script.js"></script>
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>Best Free Online Calculators in Pakistan</h2>
+<p>
+This website provides free online calculators designed for Pakistan users. Whether you want to calculate income tax, zakat, EMI, electricity bills, or daily expenses, our tools are fast, accurate, and easy to use.
+</p>
+
+<h2>Why Use Our Calculators?</h2>
+<ul>
+<li>100% Free and fast</li>
+<li>Mobile-friendly design</li>
+<li>Accurate calculations</li>
+<li>No login required</li>
+</ul>
+
+<h2>Popular Tools</h2>
+<p>
+Our most popular tools include the income tax calculator Pakistan, zakat calculator, loan EMI calculator, and electricity bill estimator. These tools help thousands of users make better financial decisions daily.
+</p>
+
+<h2>FAQs</h2>
+
+<p><b>Are these calculators accurate?</b><br>
+Yes, these calculators provide close estimates based on standard formulas.</p>
+
+<p><b>Is this website free?</b><br>
+Yes, all tools are completely free to use.</p>
+
+<p><b>Do I need to sign up?</b><br>
+No signup is required.</p>
+
+</div>
+
+<footer>
+<p>© 2026 Pakistan Calculators | Free Tools for Everyone</p>
+</footer>
+
 </body>
 </html>
