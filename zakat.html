@@ -4,27 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Zakat Calculator Pakistan 2026 | Tola + Live Gold Price + PDF</title>
+<title>Zakat Calculator Pakistan 2026 | Tola Based + Live Price + Manual Override</title>
 
-<meta name="description" content="Advanced Zakat Calculator Pakistan with Tola system, live gold/silver prices, Urdu support, and formatted PDF download.">
+<meta name="description" content="Advanced Zakat Calculator Pakistan with tola system, live gold & silver prices, manual override, and accurate nisab calculation.">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-body {
+body{
   margin:0;
-  font-family:'Segoe UI',sans-serif;
+  font-family:Segoe UI,sans-serif;
   background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   color:white;
 }
 
-/* HEADER */
-header {
+header{
   text-align:center;
   padding:20px;
 }
 
-.container {
+.container{
   max-width:520px;
   margin:auto;
   background:rgba(255,255,255,0.1);
@@ -33,8 +32,7 @@ header {
   border-radius:15px;
 }
 
-/* INPUT */
-input {
+input{
   width:100%;
   padding:10px;
   margin:6px 0;
@@ -43,8 +41,7 @@ input {
   outline:none;
 }
 
-/* BUTTON */
-button {
+button{
   width:100%;
   padding:12px;
   margin-top:8px;
@@ -53,157 +50,184 @@ button {
   font-weight:bold;
   cursor:pointer;
   background:#00c6ff;
+  color:black;
 }
 
-/* RESULT */
-.result {
+.result{
   margin-top:10px;
   padding:12px;
-  background:rgba(0,0,0,0.3);
+  background:rgba(0,0,0,0.35);
   border-radius:10px;
   font-size:14px;
 }
 
-/* SMALL TEXT */
-.small {
-  font-size:12px;
-  opacity:0.8;
+.toggleBox{
+  font-size:13px;
+  margin:10px 0;
+  opacity:0.9;
 }
+
+.content{
+  max-width:900px;
+  margin:30px auto;
+  padding:20px;
+  line-height:1.6;
+}
+
+small{opacity:0.8;}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1 id="title">Zakat Calculator Pakistan</h1>
-<button onclick="toggleLang()">اردو</button>
-<p class="small" id="priceBox">Loading live prices...</p>
+<h1>Zakat Calculator Pakistan</h1>
+<small>Accurate Tola-Based Calculation (2026)</small>
 </header>
 
 <div class="container">
 
+<!-- LIVE PRICES -->
+<p id="livePrice">Loading market prices...</p>
+
+<!-- MANUAL OVERRIDE -->
+<div class="toggleBox">
+<input type="checkbox" id="manualToggle" onchange="toggleManual()">
+Enable Manual Gold/Silver Price Override
+</div>
+
+<div id="manualBox" style="display:none;">
+<input type="number" id="goldPriceManual" placeholder="Gold Price per Tola (PKR)">
+<input type="number" id="silverPriceManual" placeholder="Silver Price per Tola (PKR)">
+</div>
+
+<!-- INPUTS -->
 <input type="number" id="cash" placeholder="Cash (PKR)">
 <input type="number" id="gold" placeholder="Gold (Tola - تولہ)">
 <input type="number" id="silver" placeholder="Silver (Tola - تولہ)">
-<input type="number" id="business" placeholder="Business / Investments">
+<input type="number" id="business" placeholder="Business / Investments (PKR)">
 <input type="number" id="liabilities" placeholder="Liabilities (Loans)">
 
 <button onclick="calculate()">Calculate Zakat</button>
 <button onclick="downloadPDF()">Download PDF</button>
-<button onclick="shareResult()">Share Result</button>
 
 <div class="result" id="result"></div>
 
 </div>
 
+<!-- SEO CONTENT -->
+<div class="content">
+
+<h2>What is Zakat?</h2>
+<p>Zakat is 2.5% compulsory charity in Islam applied on wealth above Nisab threshold.</p>
+
+<h2>Nisab Rule</h2>
+<ul>
+<li>Gold Nisab: 7.5 Tola</li>
+<li>Silver Nisab: 52.5 Tola</li>
+</ul>
+
+<h2>Why this calculator is accurate?</h2>
+<p>It uses real tola-based valuation and allows manual price correction for market changes.</p>
+
+</div>
+
 <script>
-// ---------------- LIVE PRICES ----------------
-let goldPrice = 22000;
-let silverPrice = 250;
 
-// fallback API (safe)
-fetch("https://api.metals.live/v1/spot")
-.then(r=>r.json())
-.then(data=>{
-  data.forEach(i=>{
-    if(i.gold) goldPrice = (i.gold * 2800) / 31.1;
-    if(i.silver) silverPrice = (i.silver * 2800) / 31.1;
-  });
+let goldPriceGram = 22000;
+let silverPriceGram = 250;
 
-  document.getElementById("priceBox").innerText =
-    `Gold: PKR ${goldPrice.toFixed(0)} / gram | Silver: PKR ${silverPrice.toFixed(0)} / gram`;
-})
-.catch(()=>{
-  document.getElementById("priceBox").innerText =
-    "Using estimated market prices";
-});
-
-// ---------------- CALCULATION ----------------
 let lastResult = "";
 
-function calculate() {
+// LIVE PRICE (fallback safe)
+fetch("https://api.metals.live/v1/spot")
+.then(r=>r.json())
+.then(d=>{
+  d.forEach(i=>{
+    if(i.gold) goldPriceGram = (i.gold * 2800) / 31.1;
+    if(i.silver) silverPriceGram = (i.silver * 2800) / 31.1;
+  });
+
+  updatePriceText();
+})
+.catch(updatePriceText);
+
+function updatePriceText(){
+  let goldTola = goldPriceGram * 11.66;
+  let silverTola = silverPriceGram * 11.66;
+
+  document.getElementById("livePrice").innerText =
+  `Gold: PKR ${goldTola.toFixed(0)}/tola | Silver: PKR ${silverTola.toFixed(0)}/tola`;
+}
+
+// MANUAL TOGGLE
+function toggleManual(){
+  let box = document.getElementById("manualBox");
+  box.style.display = document.getElementById("manualToggle").checked ? "block":"none";
+}
+
+// CALCULATION
+function calculate(){
 
   let cash = +document.getElementById('cash').value || 0;
-
   let goldTola = +document.getElementById('gold').value || 0;
   let silverTola = +document.getElementById('silver').value || 0;
-
-  // Tola → grams
-  let gold = goldTola * 11.66 * goldPrice;
-  let silver = silverTola * 11.66 * silverPrice;
-
   let business = +document.getElementById('business').value || 0;
   let liabilities = +document.getElementById('liabilities').value || 0;
 
-  let total = cash + gold + silver + business;
+  let goldGramPrice = goldPriceGram;
+  let silverGramPrice = silverPriceGram;
+
+  // manual override
+  if(document.getElementById("manualToggle").checked){
+    goldGramPrice = (+document.getElementById("goldPriceManual").value || goldGramPrice) / 11.66;
+    silverGramPrice = (+document.getElementById("silverPriceManual").value || silverGramPrice) / 11.66;
+  }
+
+  let goldValue = goldTola * goldGramPrice * 11.66;
+  let silverValue = silverTola * silverGramPrice * 11.66;
+
+  let total = cash + goldValue + silverValue + business;
   let net = total - liabilities;
 
-  // Nisab (52.5 tola silver)
-  let nisab = 52.5 * 11.66 * silverPrice;
+  let goldNisab = 7.5 * goldGramPrice * 11.66;
+  let silverNisab = 52.5 * silverGramPrice * 11.66;
+
+  let nisab = Math.min(goldNisab, silverNisab);
 
   let zakat = net >= nisab ? net * 0.025 : 0;
 
   lastResult =
 `ZAKAT REPORT
----------------------
+------------------
 Net Wealth: PKR ${net.toFixed(0)}
-Nisab Threshold: PKR ${nisab.toFixed(0)}
-Zakat Payable: PKR ${zakat.toFixed(0)}
+Nisab: PKR ${nisab.toFixed(0)}
+Zakat: PKR ${zakat.toFixed(0)}`;
 
-Generated by Pakistan Zakat Calculator`;
-
-  document.getElementById("result").innerHTML = `
-    <b>Net Wealth:</b> PKR ${net.toFixed(0)} <br>
-    <b>Nisab:</b> PKR ${nisab.toFixed(0)} <br>
-    <b>Zakat:</b> PKR ${zakat.toFixed(0)}
-  `;
+  document.getElementById("result").innerHTML =
+  `<b>Net Wealth:</b> PKR ${net.toFixed(0)} <br>
+   <b>Nisab:</b> PKR ${nisab.toFixed(0)} <br>
+   <b>Zakat:</b> PKR ${zakat.toFixed(0)}`;
 }
 
-// ---------------- PDF (FORMATTED) ----------------
-function downloadPDF() {
-
+// PDF
+function downloadPDF(){
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  let doc = new jsPDF();
 
-  doc.setFont("helvetica","bold");
-  doc.setFontSize(16);
-  doc.text("Zakat Calculation Report", 20, 20);
-
-  doc.setFontSize(11);
-  doc.setFont("helvetica","normal");
+  doc.text("Zakat Report Pakistan", 20, 20);
 
   let lines = lastResult.split("\n");
   let y = 40;
 
-  lines.forEach(line=>{
-    doc.text(line, 20, y);
-    y += 8;
+  lines.forEach(l=>{
+    doc.text(l,20,y);
+    y += 10;
   });
 
   doc.save("zakat-report.pdf");
 }
 
-// ---------------- SHARE ----------------
-function shareResult(){
-  if(navigator.share){
-    navigator.share({
-      title:"Zakat Calculator Result",
-      text:lastResult
-    });
-  } else {
-    navigator.clipboard.writeText(lastResult);
-    alert("Copied to clipboard");
-  }
-}
-
-// ---------------- URDU TOGGLE ----------------
-let urdu = false;
-function toggleLang(){
-  urdu = !urdu;
-
-  document.getElementById("title").innerText =
-    urdu ? "زکواۃ کیلکولیٹر" : "Zakat Calculator Pakistan";
-}
 </script>
 
 </body>
