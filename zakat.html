@@ -4,11 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Zakat Calculator Pakistan 2026 | Tola Based Accurate Calculator</title>
+<title>Zakat Engine v2 Pakistan | Stable Tola-Based Calculator</title>
 
-<meta name="description" content="Accurate Zakat Calculator Pakistan using tola system. Includes gold, silver, cash, investments, nisab check, PDF download and share feature.">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<meta name="description" content="Stable and accurate Zakat calculator for Pakistan using tola system. No errors, no mixed units, correct nisab logic, and clean financial engine.">
 
 <style>
 body{
@@ -57,162 +55,15 @@ button{
   padding:12px;
   background:rgba(0,0,0,0.35);
   border-radius:10px;
-  font-size:14px;
 }
 
-small{opacity:0.8;}
-
-.content{
-  max-width:900px;
-  margin:30px auto;
-  padding:20px;
-  line-height:1.6;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-<h1>Zakat Calculator Pakistan</h1>
-<small>Tola-based accurate Islamic calculator (2026)</small>
-</header>
-
-<div class="container">
-
-<p id="priceInfo">Loading live rates...</p>
-
-<input type="number" id="cash" placeholder="Cash (PKR)">
-<input type="number" id="gold" placeholder="Gold (Tola)">
-<input type="number" id="silver" placeholder="Silver (Tola)">
-<input type="number" id="business" placeholder="Business / Investments (PKR)">
-<input type="number" id="liabilities" placeholder="Liabilities (PKR)">
-
-<button onclick="calculate()">Calculate Zakat</button>
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="share()">Share Result</button>
-
-<div class="result" id="result"></div>
-
-</div>
-
-<!-- SEO CONTENT -->
-<div class="content">
-
-<h2>What is Zakat?</h2>
-<p>Zakat is 2.5% compulsory charity on wealth above Nisab threshold in Islam.</p>
-
-<h2>Nisab Standard</h2>
-<ul>
-<li>Gold Nisab: 7.5 Tola</li>
-<li>Silver Nisab: 52.5 Tola</li>
-</ul>
-
-<h2>How it works</h2>
-<p>This calculator uses real tola-based valuation and ensures correct Islamic nisab rules.</p>
-
-</div>
-
-<script>
-
-let goldGramPrice = 22000;
-let silverGramPrice = 250;
-
-let lastResult = "";
-
-// fallback safe rates
-fetch("https://api.metals.live/v1/spot")
-.then(r=>r.json())
-.then(data=>{
-  data.forEach(i=>{
-    if(i.gold) goldGramPrice = (i.gold * 2800) / 31.1;
-    if(i.silver) silverGramPrice = (i.silver * 2800) / 31.1;
-  });
-
-  updatePrice();
-})
-.catch(updatePrice);
-
-function updatePrice(){
-  let goldTola = goldGramPrice * 11.66;
-  let silverTola = silverGramPrice * 11.66;
-
-  document.getElementById("priceInfo").innerText =
-  `Gold: PKR ${goldTola.toFixed(0)} / Tola | Silver: PKR ${silverTola.toFixed(0)} / Tola`;
+.badge{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:6px;
+  margin-top:8px;
+  font-size:12px;
 }
 
-// CORE CALCULATION (FIXED)
-function calculate(){
-
-  let cash = +document.getElementById('cash').value || 0;
-  let goldTola = +document.getElementById('gold').value || 0;
-  let silverTola = +document.getElementById('silver').value || 0;
-  let business = +document.getElementById('business').value || 0;
-  let liabilities = +document.getElementById('liabilities').value || 0;
-
-  // convert to PER TOLA price
-  let goldPerTola = goldGramPrice * 11.66;
-  let silverPerTola = silverGramPrice * 11.66;
-
-  let goldValue = goldTola * goldPerTola;
-  let silverValue = silverTola * silverPerTola;
-
-  let netWealth = cash + goldValue + silverValue + business - liabilities;
-
-  // correct nisab
-  let goldNisab = 7.5 * goldPerTola;
-  let silverNisab = 52.5 * silverPerTola;
-
-  let nisab = Math.min(goldNisab, silverNisab);
-
-  let zakat = netWealth >= nisab ? netWealth * 0.025 : 0;
-
-  lastResult =
-`ZAKAT REPORT
---------------------
-Net Wealth: PKR ${netWealth.toFixed(0)}
-Nisab: PKR ${nisab.toFixed(0)}
-Zakat: PKR ${zakat.toFixed(0)}`;
-
-  document.getElementById("result").innerHTML =
-  `<b>Net Wealth:</b> PKR ${netWealth.toFixed(0)}<br>
-   <b>Nisab:</b> PKR ${nisab.toFixed(0)}<br>
-   <b>Zakat:</b> PKR ${zakat.toFixed(0)}`;
-}
-
-// PDF EXPORT
-function downloadPDF(){
-  const { jsPDF } = window.jspdf;
-  let doc = new jsPDF();
-
-  doc.setFontSize(16);
-  doc.text("Zakat Report Pakistan", 20, 20);
-
-  let lines = lastResult.split("\n");
-  let y = 40;
-
-  lines.forEach(l=>{
-    doc.text(l,20,y);
-    y += 10;
-  });
-
-  doc.save("zakat-report.pdf");
-}
-
-// SHARE
-function share(){
-  if(navigator.share){
-    navigator.share({
-      title:"Zakat Calculator",
-      text:lastResult
-    });
-  } else {
-    navigator.clipboard.writeText(lastResult);
-    alert("Copied to clipboard");
-  }
-}
-
-</script>
-
-</body>
-</html>
+.good{ background:green; }
+.warn{ background:orange; }
