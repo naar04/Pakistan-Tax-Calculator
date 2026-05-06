@@ -1,1 +1,154 @@
+<meta content="Free EMI calculator Pakistan. Calculate monthly loan installment, interest, and total payment instantly. Works for car, home, and personal loans." name="description"></meta>
+<meta content="emi calculator pakistan, loan calculator pakistan, car loan emi, home loan calculator, installment calculator" name="keywords"></meta>
+<title>EMI Calculator | Monthly Installment Tool</title>
+<style>
+*{box-sizing:border-box;font-family:Segoe UI,sans-serif;margin:0;padding:0}
 
+body{
+  background:linear-gradient(135deg,#020617,#0f172a);
+  color:#fff;
+}
+
+.header{
+  text-align:center;
+  padding:20px;
+}
+.header h1{
+  font-size:24px;
+  background:linear-gradient(90deg,#22c55e,#38bdf8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.header p{font-size:13px;opacity:0.8}
+
+.app{
+  max-width:420px;
+  margin:auto;
+  padding:15px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  border-radius:18px;
+  padding:18px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 10px 40px rgba(0,0,0,0.4);
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+  background:#0b1220;
+  color:#fff;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(90deg,#22c55e,#38bdf8);
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.result{
+  margin-top:15px;
+  padding:14px;
+  background:rgba(0,0,0,0.35);
+  border-radius:12px;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.seo{
+  margin-top:20px;
+  font-size:13px;
+  opacity:0.85;
+  line-height:1.6;
+}
+</style>
+
+
+<body>
+
+<div class="header">
+  <h1>Loan EMI Calculator</h1>
+  <p>Pakistan Monthly Installment Tool</p>
+</div>
+
+<div class="app">
+
+<div class="card">
+
+<input id="amount" placeholder="Loan Amount (PKR)" type="number" />
+<input id="rate" placeholder="Annual Interest Rate (%)" type="number" />
+<input id="years" placeholder="Loan Duration (Years)" type="number" />
+
+<button onclick="calcEMI()">Calculate EMI</button>
+
+<div class="result" id="result"></div>
+
+<button onclick="shareWhatsApp()">Share Result</button>
+
+</div>
+
+<div class="seo">
+<h2>EMI Calculator Pakistan</h2>
+<p>
+Use this free EMI calculator to estimate monthly installments for car loans,
+home financing, and personal loans in Pakistan.
+</p>
+</div>
+
+</div>
+
+<script>
+
+function calcEMI(){
+
+  let P = Number(document.getElementById("amount").value);
+  let annualRate = Number(document.getElementById("rate").value);
+  let years = Number(document.getElementById("years").value);
+
+  if(!P || !annualRate || !years){
+    document.getElementById("result").innerHTML = "⚠️ Fill all fields";
+    return;
+  }
+
+  let r = annualRate / 12 / 100;
+  let n = years * 12;
+
+  let emi = (P * r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
+
+  let total = emi * n;
+  let interest = total - P;
+
+  document.getElementById("result").innerHTML = `
+  <b>Monthly EMI:</b> Rs ${emi.toFixed(0)}<br>
+  <b>Total Payment:</b> Rs ${total.toFixed(0)}<br>
+  <b>Total Interest:</b> Rs ${interest.toFixed(0)}
+  `;
+}
+
+function shareWhatsApp(){
+
+  let text = document.getElementById("result").innerText;
+
+  if(!text){
+    alert("Calculate first");
+    return;
+  }
+
+  let msg = "📊 Loan EMI Result\n\n" + text;
+
+  window.open("https://wa.me/?text=" + encodeURIComponent(msg));
+}
+
+</script>
+</body>
