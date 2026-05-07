@@ -1,206 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculators Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-color: #ffffff;
+            --accent-color: #00d2ff;
+        }
 
-<meta name="google-site-verification" content="xi0Nt4uDqg7A-P_RkqxS5ztLYl1QUnbIznZowKSaZQs" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-<title>Free Online Calculators Pakistan | Tax, Zakat, EMI & More</title>
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            color: var(--text-color);
+        }
 
-<meta name="description" content="پاکستان کے لیے بہترین فری آن لائن کیلکولیٹرز۔ Income tax, zakat, EMI, electricity bill, BMI, age calculator اور مزید۔ Fast, accurate & mobile-friendly tools.">
+        .container {
+            width: 100%;
+            max-width: 500px; /* Mobile app feel on desktop */
+            margin-top: 20px;
+        }
 
-<meta name="keywords" content="Pakistan calculators, tax calculator Pakistan, zakat calculator, EMI calculator, BMI calculator, age calculator, electricity bill calculator">
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-<style>
-body {
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
-}
+        header h1 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            font-size: 2rem;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
 
-/* HEADER */
-header {
-  text-align:center;
-  padding:40px 20px;
-}
-header h1 {
-  font-size:32px;
-  margin-bottom:10px;
-}
-header p {
-  opacity:0.8;
-}
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-/* GRID */
-.container {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:20px;
-  padding:20px;
-}
+        .calc-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.2s, background 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
 
-/* CARD */
-.card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px);
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 5px 25px rgba(0,0,0,0.4);
-  transition:0.3s;
-}
-.card:hover {
-  transform:translateY(-5px);
-}
+        .calc-card:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.2);
+        }
 
-.card h3 {
-  margin-bottom:10px;
-}
+        .calc-card i {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--accent-color);
+        }
 
-.card p {
-  font-size:14px;
-  opacity:0.8;
-}
+        .calc-card span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
 
-/* BUTTON */
-.btn {
-  display:inline-block;
-  margin-top:10px;
-  padding:10px 15px;
-  background:#00c6ff;
-  color:black;
-  border-radius:8px;
-  text-decoration:none;
-  font-weight:bold;
-}
+        /* Full width for specific items or odd numbers */
+        .full-width {
+            grid-column: span 2;
+        }
 
-/* SEO CONTENT */
-.content {
-  padding:20px;
-  max-width:900px;
-  margin:auto;
-  line-height:1.6;
-}
-
-/* FOOTER */
-footer {
-  text-align:center;
-  padding:20px;
-  opacity:0.7;
-  font-size:14px;
-}
-</style>
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.7rem;
+            opacity: 0.7;
+        }
+    </style>
 </head>
-
 <body>
 
-<header>
-<h1>🇵🇰 Pakistan Free Online Calculators</h1>
-<p>All-in-one smart tools: Tax, Zakat, EMI, Bills & More</p>
-</header>
-
 <div class="container">
+    <header>
+        <h1>Smart Tools</h1>
+    </header>
 
-<div class="card">
-<h3>Income Tax Calculator</h3>
-<p>Calculate your income tax in Pakistan instantly.</p>
-<a href="tax.html" class="btn">Open Calculator</a>
+    <div class="grid">
+        <a href="https://naar04.github.io/calculators/advanced-income-tax-calculator-pakistan.html" class="calc-card">
+            <i class="fas fa-file-invoice-dollar"></i>
+            <span>Advanced Tax</span>
+        </a>
+        
+        <a href="https://naar04.github.io/calculators/income-tax-calculator-2025-26.html" class="calc-card">
+            <i class="fas fa-calculator"></i>
+            <span>Tax 2025-26</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/currency-converter-pakistan-2026-pkr-to.html" class="calc-card">
+            <i class="fas fa-coins"></i>
+            <span>Currency</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/emi-calculator-monthly-installment-tool.html" class="calc-card">
+            <i class="fas fa-credit-card"></i>
+            <span>EMI Tool</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/loan-eligibility-calculator-pakistan.html" class="calc-card">
+            <i class="fas fa-hand-holding-usd"></i>
+            <span>Loan Eligibility</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/savings-goal-calculator-pakistan-2026.html" class="calc-card">
+            <i class="fas fa-piggy-bank"></i>
+            <span>Savings Goal</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/savings-investment-calculator-pakistan.html" class="calc-card">
+            <i class="fas fa-chart-line"></i>
+            <span>Investment</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/solar-savings-calculator-pakistan-2026.html" class="calc-card">
+            <i class="fas fa-solar-panel"></i>
+            <span>Solar Savings</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/zakat-calculator-based-on-silver-nisab.html" class="calc-card">
+            <i class="fas fa-hand-holding-heart"></i>
+            <span>Zakat (Silver)</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/age-calculator-2026-exact-age-in-years.html" class="calc-card">
+            <i class="fas fa-birthday-cake"></i>
+            <span>Age Calc</span>
+        </a>
+
+        <a href="https://naar04.github.io/calculators/Youtube_calculator.html" class="calc-card full-width">
+            <i class="fab fa-youtube"></i>
+            <span>YouTube Calculator</span>
+        </a>
+    </div>
+
+    <footer>
+        © 2026 Calculator Suite • Designed for Android
+    </footer>
 </div>
-
-<div class="card">
-<h3>Zakat Calculator</h3>
-<p>Calculate zakat based on your total wealth easily.</p>
-<a href="zakat.html" class="btn">Open Calculator</a>
-</div>
-
-<div class="card">
-<h3>Loan EMI Calculator</h3>
-<p>Find monthly installment for loans and financing.</p>
-<a href="emi.html" class="btn">Open Calculator</a>
-</div>
-
-<div class="card">
-<h3>Electricity Bill Calculator</h3>
-<p>Estimate your monthly electricity bill.</p>
-<a href="bill.html" class="btn">Open Calculator</a>
-</div>
-
-<div class="card">
-<h3>Fuel Cost Calculator</h3>
-<p>Calculate fuel cost for travel and trips.</p>
-<a href="fuel.html" class="btn">Open Calculator</a>
-</div>
-
-<div class="card">
-<h3>BMI Calculator</h3>
-<p>Check your body mass index quickly.</p>
-<a href="bmi.html" class="btn">Open Calculator</a>
-</div>
-
-<div class="card">
-<h3>Age Calculator</h3>
-<p>Find your exact age in years, months, days.</p>
-<a href="age.html" class="btn">Open Calculator</a>
-</div>
-
-<div class="card">
-<h3>Savings Calculator</h3>
-<p>Estimate your savings growth over time.</p>
-<a href="savings.html" class="btn">Open Calculator</a>
-</div>
-
-<div class="card">
-<h3>Mobile Data Calculator</h3>
-<p>Calculate your mobile data usage cost.</p>
-<a href="data.html" class="btn">Open Calculator</a>
-</div>
-
-<div class="card">
-<h3>Salary After Tax</h3>
-<p>Calculate your net salary after tax deductions.</p>
-<a href="salary.html" class="btn">Open Calculator</a>
-</div>
-
-</div>
-
-<!-- SEO CONTENT -->
-<div class="content">
-
-<h2>Best Free Online Calculators in Pakistan</h2>
-<p>
-This website provides free online calculators designed for Pakistan users. Whether you want to calculate income tax, zakat, EMI, electricity bills, or daily expenses, our tools are fast, accurate, and easy to use.
-</p>
-
-<h2>Why Use Our Calculators?</h2>
-<ul>
-<li>100% Free and fast</li>
-<li>Mobile-friendly design</li>
-<li>Accurate calculations</li>
-<li>No login required</li>
-</ul>
-
-<h2>Popular Tools</h2>
-<p>
-Our most popular tools include the income tax calculator Pakistan, zakat calculator, loan EMI calculator, and electricity bill estimator. These tools help thousands of users make better financial decisions daily.
-</p>
-
-<h2>FAQs</h2>
-
-<p><b>Are these calculators accurate?</b><br>
-Yes, these calculators provide close estimates based on standard formulas.</p>
-
-<p><b>Is this website free?</b><br>
-Yes, all tools are completely free to use.</p>
-
-<p><b>Do I need to sign up?</b><br>
-No signup is required.</p>
-
-</div>
-
-<footer>
-<p>© 2026 Pakistan Calculators | Free Tools for Everyone</p>
-</footer>
 
 </body>
 </html>
